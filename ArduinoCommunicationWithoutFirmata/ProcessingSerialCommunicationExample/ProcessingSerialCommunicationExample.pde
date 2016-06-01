@@ -90,30 +90,37 @@ void draw() {
 // when there is data available the serialEvent is triggered.
 void serialEvent(Serial port) {
   
-  // read the string untill the newline character (println) Arduino
-  String incomingData = port.readStringUntil(10);
-  
-  if(incomingData != null) {
-  
-    // Remove whitespace characters from the beginning and end of the string with trim()
-    incomingData        = trim(incomingData);
+  // try/catch to prevent errors if you call non-initialized elements. 
+  try {
+    // read the string until the newline character (println) Arduino
+    String incomingString = port.readStringUntil(10);
     
-    // Break the String into pieces using the comma character with split()
-    // Use shorten() to remove the last element. Since this is empty (,) at the end
-    String[] incomingString = split(incomingData, ',');
+    if(incomingString != null) {
     
-    // Show a warning if the length of the data is longer than our incomingValues array length
-    if(incomingString.length != incomingValues.length) {
-        println("WARNING: more or less incoming values. Change the incomingValues array size to: " + incomingString.length);
-    }
-    else {
-      // convert the string to integers and store it in the incoming values array
-      incomingValues = int(incomingString);
+      // Remove whitespace characters from the beginning and end of the string with trim()
+      incomingString        = trim(incomingString);
       
-      // Show the values in the console for debugging
-      //printArray(incomingValues);  
+      // Break the String into pieces using the comma character with split()
+      // Use shorten() to remove the last element. Since this is empty (,) at the end
+      String[] incomingData = split(incomingString, ',');
+      
+      // Show a warning if the length of the data is longer than our incomingValues array length
+      if(incomingData.length != incomingValues.length) {
+          println("WARNING: more or less incoming values. Change the incomingValues array size to: " + incomingData.length);
+      }
+      else {
+        // convert the string to integers and store it in the incoming values array
+        incomingValues = int(incomingData);
+        
+        // Show the values in the console for debugging
+        //printArray(incomingValues);  
+      }
     }
   }
+  catch (Exception e) {
+    // decide what to do here
+    println(e); 
+  } 
 }
 
 void displayValueMonitors() {
