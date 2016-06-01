@@ -20,7 +20,7 @@ public class ValueMonitor {
   private int h;
   
   // variables to scale the monitor automatically
-  private float sensorAvgMinValue = 0.0;      
+  private float sensorAvgMinValue = MAX_FLOAT-1;      
   private float sensorAvgMaxValue = 1.0;     
   
   // to display usefull values
@@ -99,14 +99,16 @@ public class ValueMonitor {
       for (int i=0; i<valueCircularBufferSize-1; i++)
       {               
         sx = map(i, 0.0, valueCircularBufferSize, x+padding, mapW-padding);
+        
         // use sensorAvgMinValue and sensorAvgMaxValue to scale
-        //sy = map(constrain(getValueFromCircularBuffer(i), sensorAvgMinValue-marginMinMax, sensorAvgMaxValue+marginMinMax), sensorAvgMinValue-marginMinMax, sensorAvgMaxValue+marginMinMax, mapH-padding, y+padding);     
-        sy = map(constrain(getValueFromCircularBuffer(i), sensorAvgMinValue, sensorAvgMaxValue), sensorAvgMinValue, sensorAvgMaxValue, mapH-padding, y+padding);     
-        //sy = map(constrain(, sensorAvgMinValue, sensorAvgMaxValue), sensorAvgMinValue, sensorAvgMaxValue, mapH-padding, y+padding);     
         
-        
-        //sy = map(getValueFromCircularBuffer(i), 0-marginMinMax, 1+marginMinMax, mapH-padding, y+padding); 
-        //sy = map(getValueFromCircularBuffer(i), 0, 1, mapH-padding, y+padding); 
+        // prevent map NaN warning
+        if(sensorAvgMinValue != sensorAvgMaxValue) {
+          sy = map(constrain(getValueFromCircularBuffer(i), sensorAvgMinValue, sensorAvgMaxValue), sensorAvgMinValue, sensorAvgMaxValue, mapH-padding, y+padding);     
+        }
+        else {
+          sy = 0.0;
+        }
         
         vertex(sx, sy);
       }
