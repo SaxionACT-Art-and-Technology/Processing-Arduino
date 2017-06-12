@@ -48,10 +48,10 @@ String[] getPossibleArduinoPorts( String[] ports )
     String[] matches = {};
     int nrOfMatches = 0;
     Pattern pattern = null;
-    Pattern    modemPattern = Pattern.compile( ".*usbmodem[\0560-9a-z]+"           );
-    Pattern  cumodemPattern = Pattern.compile( ".*cu\056usbmodem[\0560-9]+"     );
-    Pattern   serialPattern = Pattern.compile( ".*usbserial[\0560-9A-Za-z]+"       );
-    Pattern cuserialPattern = Pattern.compile( ".*cu\056usbserial[\0560-9A-Za-z]+" );
+    Pattern    modemPattern = Pattern.compile( ".*usbmodem[\056A-Za-z0-9]+"           );
+    Pattern  cumodemPattern = Pattern.compile( ".*cu\056usbmodem[\056A-Za-z0-9]+"     );
+    Pattern   serialPattern = Pattern.compile( ".*usbserial[\056A-Za-z0-9]+"       );
+    Pattern cuserialPattern = Pattern.compile( ".*cu\056usbserial[\056A-Za-z0-9]+" );
     Pattern  comPortPattern = Pattern.compile( "COM[0-9]+"                      );
    
            if ( ( nrOfMatches = getNrOfMatches( ports,  cumodemPattern ) ) > 0 ) {
