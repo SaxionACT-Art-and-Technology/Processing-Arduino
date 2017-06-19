@@ -1,4 +1,4 @@
-#In the Processing-Arduino repo we placed several small projects with a specific function. ## ArduinoCapacitiveSensingWithMPR121 
+# In the Processing-Arduino repo we placed several small projects with a specific function. ## ArduinoCapacitiveSensingWithMPR121 
 This project makes it possible to use the 12 input values of the MKR121 touch sensor (connected to an Arduino) In Processing by serial communication using CSV (1,2 …).  Only the 12 sensor values are send to Processing. In Processing a monitor with all values is shown. 
 ---## ArduinoSerialCommunicationWithoutFirmata
  This project makes it possible to use the Arduino in Processing by serial communication using CSV (1,2 …) and not firmata.  Only two digital input values are send to Processing and Processing sends two output values based on the mouse coordinates. In Processing a monitor with the input values is shown.
